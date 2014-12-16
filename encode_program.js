@@ -1,0 +1,1 @@
+var encode = function(toEncode){};

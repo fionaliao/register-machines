@@ -1,0 +1,1 @@
+var decode = function(toDecode){};

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Register Machines</title>    
+    <script src="encode_program.js"></script>
+    <script src="decode_program.js"></script>
+    <script>
+       window.onload = function() {
+         var toEncode = "";
+         var toDecode = "";
+         document.getElementById("encode_result").innerHTML = "Encode: " + encode(toEncode);
+         document.getElementById("decode_result").innerHTML = "Decode: " + decode(toDecode);
+       }
+    </script>
+  </head>
+  <body>
+    <h1>Super fun thing</h1>
+    <p id="encode_result"></p>
+    <p id="decode_result"></p>
+  </body>
+</html>
