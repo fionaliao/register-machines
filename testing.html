@@ -8,7 +8,7 @@
     <script>
        window.onload = function() {
          var toEncode = "0->3,1;halt;0+>0;0->0,1";
-         var toDecode = "";
+         var toDecode = Math.pow(2,94)*16395;
          document.getElementById("encode_result").innerHTML = "Encode: " + encode(toEncode);
          document.getElementById("decode_result").innerHTML = "Decode: " + decode(toDecode);
        }

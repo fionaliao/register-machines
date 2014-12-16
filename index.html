@@ -1,12 +1,40 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Register Machines</title>
+    <meta charset="UTF-8">
+    <title>Register Machines - Encoding and Decoding Code</title>
     <script src="encode_program.js"></script>
-    <script src="decode_program.js"</script>
+    <script src="decode_program.js"></script>
     <script>
+        var encodeText = function() {
+            document.getElementById("encode_result").innerHTML =
+                    "Result: " + 
+                    encode(document.getElementById("encode_input_box").value);
+        };
+        var decodeText = function() {
+            document.getElementById("decode_result").innerHTML =
+                    "Result: " +
+                    decode(document.getElementById("decode_input_box").value);
+        };
     </script>
+    <style>
+        
+    </style>
   </head>
   <body>
+      <div id="encode_div">
+        To encode: <br/>
+        <input type="text" id="encode_input_box"><br/>
+        <button onclick="encodeText()">Encode</button> 
+        <div id="encode_result"></div>
+      </div>
+      <div id="decode_div">
+        <h3>Decoder</h3>
+        <p>Input a number. Expressions in the format x * y and x ^ y are also allowed. Evaluation is power first then multiplication. No brackets.</p>
+        To decode: <br/>
+        <input type="text" id="decode_input_box"><br/>
+        <button onclick="decodeText()">Decode</button>
+        <div id="decode_result"></div> 
+      </div>
   </body>
 </html>
