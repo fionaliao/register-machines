@@ -4,6 +4,18 @@ var PPair = function (x, y, type) {
     this.type = type;
 }
 
+function filterString(string) {
+    var result = ""
+    for (var i = 0; i < string.length; i++) {
+        if ((string[i] >= '0' && string[i] <= '9') || string[i] == '>' ||
+        string[i] == '+' || string[i] == '-' || string[i] == ';' ||
+        string[i] == ',') {
+            result += string[i];
+        }
+    }
+    return result;
+}
+
 function convertSPairToValue(x, y) {
     var fst = Math.pow(2, x);
     var snd = (2 * y) + 1;
@@ -24,26 +36,19 @@ function encodeIntoPPairs(toEncodeArray) {
     for (var i = 0; i < toEncodeArray.length; i++) {
         if (toEncodeArray[i].indexOf("+") > -1) {
             var fstString = toEncodeArray[i].split("+")[0];
-            //console.log(toEncodeArray[i].split("+"));
             var fst = parseInt(fstString);
-            //console.log("PPair fst: " + fst);
             var sndString = toEncodeArray[i].split(">")[1];
             var snd = parseInt(sndString);
             result[i] = new PPair(2 * fst, snd, 0);
         } else if (toEncodeArray[i].indexOf("-") > -1) {
             var fstString = toEncodeArray[i].split("-")[0];
-            //console.log(toEncodeArray[i].split("-"));
             var fst = parseInt(fstString);
-            //console.log("PPair fst: " + fst);
             var sndString = toEncodeArray[i].split(">")[1];
             var sndFstString = sndString.split(",")[0];
             var sndFst = parseInt(sndFstString);
-            //console.log("SPair fst: " + sndFst);
             var sndSndString = sndString.split(",")[1];
             var sndSnd = parseInt(sndSndString);
-            //console.log("SPair snd: " + sndSnd);
             var snd = convertSPairToValue(sndFst, sndSnd);
-            //console.log("SPair result: " + snd);
             result[i] = new PPair((2 * fst) + 1, snd, 0);
         } else {
             result[i] = new PPair(undefined, undefined, 1);
@@ -55,7 +60,6 @@ function encodeIntoPPairs(toEncodeArray) {
 function encodeIntoValues(encodedPPairs) {
     var result = new Array(encodedPPairs.length + 1);
     for (var i = 0; i < encodedPPairs.length; i++) {
-        //console.log("PPair: <" + encodedPPairs[i].x + ", " + encodedPPairs[i].y + ">");
         result[i] = convertPPairToValue(encodedPPairs[i]);
     }
     result[encodedPPairs.length] = 0;
@@ -67,18 +71,13 @@ function encodeIntoSingleValue(encodedValues) {
         var fst = Math.pow(2, encodedValues[i]);
         var snd = (2 * encodedValues[i + 1]) + 1;
         encodedValues[i] = fst * snd;
-        console.log(fst * snd);
     }
     return encodedValues[0];
 }
 
 var encode = function(toEncode) {
-    var toEncodeArray = toEncode.split(";");
+    var toEncodeArray = filterString(toEncode).split(";");
     var encodedPPairs = encodeIntoPPairs(toEncodeArray);
     var encodedValues = encodeIntoValues(encodedPPairs);
-    /*console.log("Encoded values:");
-    for (var i = 0; i < encodedValues.length; i++) {
-        console.log(encodedValues[i]);
-    }*/
     return encodeIntoSingleValue(encodedValues);
 };
