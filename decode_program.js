@@ -1,6 +1,20 @@
-var decode = function(toDecode){
-		return decodeList(toDecode, 0);
-	};
+var decode = function(toDecode) {
+	toDecode = toDecode.replace(/\s+/g, '');
+	if (toDecode == "") {
+		return "";
+	}
+	var mulArray = toDecode.split("*");
+	var currentNumber = 0;
+	for (var i = 0; i < mulArray.length; i++) {
+		var powArray = mulArray[i].split("^");
+		var currentPowNumber = powArray[0];
+		for(var j = 1; j < powArray.length; j++) {
+			currentPowNumber = Math.pow(currentPowNumber, powArray[j]);
+		}
+		currentNumber = ((i == 0) ? 1 : currentNumber) * currentPowNumber;
+	}
+	return decodeList(currentNumber, 0);
+};
 	
 var decodeList = function(list, index) {
 	var head = 0;
@@ -20,9 +34,13 @@ var decodeInstruction = function(instruction, index) {
 		return "<br/>" + writeHaltInstr(index); 
 	}
 	var x = 0;
-	while (instruction % 2 == 0) {
+	while (instruction != 0 && instruction % 2 == 0) {
 		x++;
 		instruction = instruction / 2;
+	}
+	if (instruction == 0) {
+		alert("something's not right with your input...");
+		return "";
 	}
 	instruction = ((instruction-1)/2);
 	if (x % 2 == 0) { //increment instruction
