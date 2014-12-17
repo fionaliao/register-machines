@@ -173,14 +173,12 @@ function checkSyntax(toEncodeArray) {
         }
         //Check for end - valid at this stage
         if (j == toEncodeArray[i].length - 1) {
-            console.log(i + ": Got here 1");
             continue;
         }
         j++;
         while (toEncodeArray[i][j] >= '0' && toEncodeArray[i][j] <= '9') {
             //Check for end - valid at this stage
             if (j == toEncodeArray[i].length - 1) {
-                console.log(i + ": Got here 2");
                 continue;
             }
             j++;
@@ -200,14 +198,12 @@ function checkSyntax(toEncodeArray) {
         }
         //Check for end - valid at this stage
         if (j == toEncodeArray[i].length - 1) {
-            console.log(i + ": Got here 3");
             continue;
         }
         j++;
         while (toEncodeArray[i][j] >= '0' && toEncodeArray[i][j] <= '9') {
             //Check for end - valid at this stage
-            if (j == toEncodeArray[i].length - 1) { 
-                console.log(i + ": Got here 4");
+            if (j == toEncodeArray[i].length - 1) {
                 continue;
             }
             j++;
