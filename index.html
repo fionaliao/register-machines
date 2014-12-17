@@ -26,11 +26,11 @@
         <h3>Encoder</h3>
         <p>Input a program.</p>
         <p>Example program:<br/>
-          R0- > L3, L1;<br/>
-          HALT;<br/>
-          R0+ > L0;<br/>
-          R0- > L0, L1</p>
-        <p>Note: Encoder does not support explicit labelling, so "L0: R0- > L3, L1" is not valid.<br/>
+          L0: R0- > L3, L1;<br/>
+          L1: HALT;<br/>
+          L2: R0+ > L0;<br/>
+          L3: R0- > L0, L1</p>
+        <p>Note: Encoder assumes that labels are in order (ie. L0: ...; L1: ...; L2: ......).<br/>
           Also, semicolons separate each label line and are not used after the last label line unless the user is wishing to add an<br/>
           implicit HALT statement after the last label line.</p>
         To encode: <br/>
