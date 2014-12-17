@@ -30,6 +30,9 @@
           HALT;<br/>
           R0+ > L0;<br/>
           R0- > L0, L1</p>
+        <p>Note: Encoder does not support explicit labelling, so "L0: R0- > L3, L1" is not valid.<br/>
+          Also, semicolons separate each label line and are not used after the last label line unless the user is wishing to add an<br/>
+          implicit HALT statement after the last label line.</p>
         To encode: <br/>
         <textarea id="encode_input_box" rows="20" cols="50"></textarea><br/>
         <input type="checkbox" id="encode_check_box"> Show result as 2<sup>x</sup> &times; y<p/>

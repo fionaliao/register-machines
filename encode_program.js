@@ -76,10 +76,12 @@ function encodeIntoSingleValue(encodedValues) {
 }
 
 function checkSyntax(toEncodeArray) {
+    var result = "";
     for (var i = 0; i < toEncodeArray.length; i++) {
+        //console.log(i + ": Got here");
         //If empty, then valid
         if (toEncodeArray[i].length == 0) {
-            return undefined;
+            continue;
         }
         //Check for number at beggining
         if (toEncodeArray[i][0] < '0' || toEncodeArray[i][0] > '9') {
@@ -123,13 +125,15 @@ function checkSyntax(toEncodeArray) {
         }
         //Check for end - valid at this stage
         if (j == toEncodeArray[i].length - 1) {
-            return undefined;
+            console.log(i + ": Got here 1");
+            continue;
         }
         j++;
         while (toEncodeArray[i][j] >= '0' && toEncodeArray[i][j] <= '9') {
             //Check for end - valid at this stage
             if (j == toEncodeArray[i].length - 1) {
-                return undefined;
+                console.log(i + ": Got here 2");
+                continue;
             }
             j++;
         }
@@ -148,13 +152,15 @@ function checkSyntax(toEncodeArray) {
         }
         //Check for end - valid at this stage
         if (j == toEncodeArray[i].length - 1) {
-            return undefined;
+            console.log(i + ": Got here 3");
+            continue;
         }
         j++;
         while (toEncodeArray[i][j] >= '0' && toEncodeArray[i][j] <= '9') {
             //Check for end - valid at this stage
-            if (j == toEncodeArray[i].length - 1) {
-                return undefined;
+            if (j == toEncodeArray[i].length - 1) { 
+                console.log(i + ": Got here 4");
+                continue;
             }
             j++;
         }
@@ -178,9 +184,9 @@ function changeForm(x) {
 
 var encode = function(toEncode, checked) {
     var toEncodeArray = filterString(toEncode).split(";");
-    if (checkSyntax(toEncodeArray) != undefined) {
+    /*if (checkSyntax(toEncodeArray) != undefined) {
         return "Syntax Error at L" + checkSyntax(toEncodeArray);
-    }
+    }*/
     var encodedPPairs = encodeIntoPPairs(toEncodeArray);
     var encodedValues = encodeIntoValues(encodedPPairs);
     var encodedSingleValue = encodeIntoSingleValue(encodedValues);
