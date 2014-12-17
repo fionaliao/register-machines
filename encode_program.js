@@ -75,8 +75,101 @@ function encodeIntoSingleValue(encodedValues) {
     return encodedValues[0];
 }
 
+function checkSyntax(toEncodeArray) {
+    for (var i = 0; i < toEncodeArray.length; i++) {
+        //If empty, then valid
+        if (toEncodeArray[i].length == 0) {
+            return undefined;
+        }
+        //Check for number at beggining
+        if (toEncodeArray[i][0] < '0' || toEncodeArray[i][0] > '9') {
+            return i + ": Expecting number at beggining of code.";
+        }
+        var j = 1;
+        //Check for end
+        if (j == toEncodeArray[i].length - 1) {
+            return i + ": Expecting \'+\' or \'-\' after number.";
+        }
+        while (toEncodeArray[i][j] >= '0' && toEncodeArray[i][j] <= '9') {
+            //Check for end
+            if (j == toEncodeArray[i].length - 1) {
+                return i + ": Expecting \'+\' or \'-\' after number.";
+            }
+            j++;
+        }
+        //Check for + or - symbol
+        if (!(toEncodeArray[i][j] == '+' || toEncodeArray[i][j] == '-')) {
+            return i + ": Expecting \'+\' or \'-\' after number.";
+        }
+        //Check for end
+        if (j == toEncodeArray[i].length - 1) {
+            return i + ": Expecting \'>\' after \'" + toEncodeArray[i][j]
+             + "\' symbol.";
+        }
+        j++;
+        //Check for > symbol
+        if (toEncodeArray[i][j] != '>') {
+            return i + ": Expecting \'>\' after \'" + toEncodeArray[i][j - 1]
+             + "\' symbol.";
+        }
+        //Check for end
+        if (j == toEncodeArray[i].length - 1) {
+            return i + ": Expecting number after \'>\' symbol.";
+        }
+        j++;
+        //Check for number after > symbol
+        if (toEncodeArray[i][j] < '0' || toEncodeArray[i][j] > '9') {
+            return i + ": Expecting number after \'>\' symbol.";
+        }
+        //Check for end - valid at this stage
+        if (j == toEncodeArray[i].length - 1) {
+            return undefined;
+        }
+        j++;
+        while (toEncodeArray[i][j] >= '0' && toEncodeArray[i][j] <= '9') {
+            //Check for end - valid at this stage
+            if (j == toEncodeArray[i].length - 1) {
+                return undefined;
+            }
+            j++;
+        }
+        //Check for , symbol
+        if (toEncodeArray[i][j] != ',') {
+            return i + ": Expecting \',\' symbol after number.";
+        }
+        //Check for end
+        if (j == toEncodeArray[i].length - 1) {
+            return i + ": Expecting number after \',\' symbol.";
+        }
+        j++;
+        //Check for number after , symbol
+        if (toEncodeArray[i][j] < '0' || toEncodeArray[i][j] > '9') {
+            return i + ": Expecting number after \',\' symbol.";
+        }
+        //Check for end - valid at this stage
+        if (j == toEncodeArray[i].length - 1) {
+            return undefined;
+        }
+        j++;
+        while (toEncodeArray[i][j] >= '0' && toEncodeArray[i][j] <= '9') {
+            //Check for end - valid at this stage
+            if (j == toEncodeArray[i].length - 1) {
+                return undefined;
+            }
+            j++;
+        }
+        if (j < toEncodeArray[i].length) {
+            return i + ": No more code before next ; or end of code."
+        }
+    }
+    return undefined;
+}
+
 var encode = function(toEncode) {
     var toEncodeArray = filterString(toEncode).split(";");
+    if (checkSyntax(toEncodeArray) != undefined) {
+        return "Syntax Error at L" + checkSyntax(toEncodeArray);
+    }
     var encodedPPairs = encodeIntoPPairs(toEncodeArray);
     var encodedValues = encodeIntoValues(encodedPPairs);
     return encodeIntoSingleValue(encodedValues);
