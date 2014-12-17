@@ -165,12 +165,28 @@ function checkSyntax(toEncodeArray) {
     return undefined;
 }
 
-var encode = function(toEncode) {
+function changeForm(x) {
+    var y = x;
+    var z = 0;
+    while (y % 2 == 0) {
+        y /= 2;
+        z++;
+    }
+    var s = "" + z;
+    return "2" + s.sup() + " \xD7 " + y;
+}
+
+var encode = function(toEncode, checked) {
     var toEncodeArray = filterString(toEncode).split(";");
     if (checkSyntax(toEncodeArray) != undefined) {
         return "Syntax Error at L" + checkSyntax(toEncodeArray);
     }
     var encodedPPairs = encodeIntoPPairs(toEncodeArray);
     var encodedValues = encodeIntoValues(encodedPPairs);
-    return encodeIntoSingleValue(encodedValues);
+    var encodedSingleValue = encodeIntoSingleValue(encodedValues);
+    if (checked) {
+        return changeForm(encodedSingleValue);
+    } else {
+        return encodedSingleValue;
+    }
 };

@@ -9,7 +9,7 @@
         var encodeText = function() {
             document.getElementById("encode_result").innerHTML =
                     "Result: " + 
-                    encode(document.getElementById("encode_input_box").value);
+                    encode(document.getElementById("encode_input_box").value, document.getElementById("encode_check_box").checked);
         };
         var decodeText = function() {
             document.getElementById("decode_result").innerHTML =
@@ -27,6 +27,7 @@
         <p>Input a program.</p>
         To encode: <br/>
         <textarea id="encode_input_box" rows="20" cols="50"></textarea><br/>
+        <input type="checkbox" id="encode_check_box"> Show result as 2<sup>x</sup> &times; y<p/>
         <button onclick="encodeText()">Encode</button> 
         <div id="encode_result"></div>
       </div>
